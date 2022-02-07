@@ -31,6 +31,12 @@
       }
     </style>
   </head>
+  <nav>
+    <button data-troende="alle" class="valgt">Alle</button>
+    <button data-troende="ja">Ja</button>
+    <button data-troende="nej">Nej</button>
+    <button data-troende="tvivler">Tvivler</button>
+  </nav>
   <body>
     <section></section>
     <template>
@@ -48,8 +54,11 @@
       const container = document.querySelector("section");
       const template = document.querySelector("template");
 
-      const url = "https://tema7-8f24.restdb.io/rest/medlemmer";
-      const key = "61fcf7f43f215f310a37be73";
+      const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+      const key = "600fe9211346a1524ff12e31";
+
+      let filter = "ja";
+      //   let = personer;
       let data = [];
 
       const options = {
@@ -68,16 +77,18 @@
         vis(json);
       }
 
-      function vis(medlemmer) {
-        medlemmer.forEach((medlem) => {
-          console.log(medlem);
-          let klon = template.cloneNode(true).content;
-          klon.querySelector("img").src = "jpg/" + medlem.profilbillede;
-          klon.querySelector("h2").textContent = medlem.fornavn;
-          klon.querySelector(".efternavn").textContent =
-            "Efternavn" + medlem.efternavn;
-          klon.querySelector(".email").textContent = "Email: " + medlem.email;
-          container.appendChild(klon);
+      function vis(personer) {
+        personer.forEach((person) => {
+          console.log(person);
+          if (filter == person.troende) {
+            let klon = template.cloneNode(true).content;
+            klon.querySelector("img").src = "jpg/" + person.profilbillede;
+            klon.querySelector("h2").textContent = person.fornavn;
+            klon.querySelector(".efternavn").textContent =
+              "Efternavn" + person.efternavn;
+            klon.querySelector(".email").textContent = "Email: " + person.email;
+            container.appendChild(klon);
+          }
         });
       }
       hentdata();
