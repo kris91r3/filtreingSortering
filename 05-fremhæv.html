@@ -95,6 +95,8 @@
       const header = document.querySelector("header h1");
       function filtrerPersoner() {
         filter = this.dataset.troende;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
         vis(personer);
         header.textContent = this.textContent;
       }
